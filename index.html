@@ -1,0 +1,1165 @@
+<title>M Amaya @ Southbay</title>
+<style>
+  :root{
+    --ink:#142226;
+    --ink-soft:#4B6066;
+    --ink-faint:#7C8E92;
+    --paper:#F2F5F5;
+    --paper-raised:#FFFFFF;
+    --terracotta:#B15A34;
+    --terracotta-tint:#F3E4DA;
+    --gold:#A9793C;
+    --line:rgba(20,34,38,0.13);
+    --shadow:0 20px 44px -28px rgba(14,42,45,0.38);
+    --deep:#12242B;
+    --deep-raised:#1C363D;
+    --on-deep:#F4FBFA;
+    --on-deep-soft:#CBD6D5;
+    --on-deep-faint:#8FA3A2;
+    --scrim-a:rgba(10,20,22,0.94);
+    --scrim-b:rgba(10,20,22,0.4);
+    --scrim-c:rgba(10,20,22,0.04);
+    --accent-fill:#C1633A;
+    --accent-gradient:linear-gradient(135deg,#E08A4F 0%,#C6672E 100%);
+    --rose-gold:#E3AC90;
+    --warm-gold-1:#FBF3E3;
+    --warm-gold-2:#F4E2BC;
+    --warm-gold-3:#E9CD98;
+    --on-gold:#3A2A16;
+    --on-gold-soft:#6B5636;
+    --on-gold-faint:#9C8862;
+    --gold-deep:#93641F;
+    --radius-s:3px;
+    --radius-m:10px;
+    --font-display:"Fraunces",Georgia,"Noto Serif SC",serif;
+    --font-body:"Work Sans","Noto Sans SC",-apple-system,sans-serif;
+    --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --glass-bg:linear-gradient(150deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.22) 100%);
+    --glass-border:rgba(255,255,255,.55);
+    --glass-shine:rgba(255,255,255,.65);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    padding-inline:0;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;margin:0;text-wrap:balance;color:var(--ink);}
+  p{margin:0;}
+  .mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums;letter-spacing:0.01em;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:.55em;
+  }
+  .eyebrow::before{content:"";width:22px;height:1.5px;background:var(--terracotta);display:inline-block;flex-shrink:0;}
+
+  .wrap{max-width:1180px;margin-inline:auto;padding-inline:20px;}
+  section{padding-block:76px;}
+  @media (max-width:640px){ section{padding-block:52px;} }
+
+  /* ---------- header ---------- */
+  html{scroll-padding-top:82px;}
+  header.site{
+    position:fixed;top:0;left:0;right:0;z-index:40;
+    background:linear-gradient(180deg, rgba(8,16,18,.6) 0%, rgba(8,16,18,.32) 60%, rgba(8,16,18,0) 100%);
+    border-bottom:1px solid transparent;
+    transition:background .35s ease, border-color .35s ease, box-shadow .35s ease;
+  }
+  header.site.is-scrolled{
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom-color:var(--line);
+  }
+  .header-row{
+    max-width:1180px;margin-inline:auto;padding:14px 20px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .header-right{display:flex;align-items:center;gap:12px;margin-left:auto;}
+  .wordmark{display:flex;align-items:center;text-decoration:none;}
+  .wordmark img{height:38px;width:auto;display:block;}
+
+  .site-nav{display:flex;align-items:center;gap:19px;margin-left:28px;}
+  .site-nav a{
+    font-family:var(--font-body);font-weight:600;font-size:13.5px;
+    text-decoration:none;color:rgba(244,251,250,.85);transition:color .35s ease;white-space:nowrap;
+  }
+  .site-nav a:hover{color:var(--rose-gold);}
+  .site-nav a:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px;}
+  header.site.is-scrolled .site-nav a{color:var(--ink-soft);}
+  header.site.is-scrolled .site-nav a:hover{color:var(--terracotta);}
+  @media (max-width:1180px){ .site-nav{gap:14px;margin-left:20px;} }
+  @media (max-width:1080px){ .site-nav{display:none;} }
+
+  .lang-toggle{display:flex;border:1px solid rgba(244,251,250,.4);border-radius:100px;padding:3px;gap:2px;flex-shrink:0;transition:border-color .35s ease;}
+  .lang-toggle button{
+    border:none;background:transparent;font-family:var(--font-mono);font-size:12px;font-weight:500;
+    padding:7px 13px;border-radius:100px;cursor:pointer;color:rgba(244,251,250,.85);transition:color .35s ease;
+  }
+  .lang-toggle button.active{background:var(--accent-fill);color:#F4FBFA;}
+  .lang-toggle button:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px;}
+  header.site.is-scrolled .lang-toggle{border-color:var(--line);}
+  header.site.is-scrolled .lang-toggle button{color:var(--ink-soft);}
+  header.site.is-scrolled .lang-toggle button.active{color:#F4FBFA;}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--font-body);font-weight:600;font-size:14.5px;
+    padding:12px 22px;border-radius:100px;
+    text-decoration:none;white-space:nowrap;
+    border:1px solid transparent;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px;}
+  .btn-primary{background:var(--accent-gradient);color:#F4FBFA;box-shadow:0 18px 36px -16px rgba(198,103,46,.5);}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--terracotta);}
+  header .btn-primary{padding:10px 18px;font-size:13.5px;}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding-top:0;}
+  .hero-media{position:relative;height:min(78vh,640px);min-height:420px;overflow:hidden;}
+  .hero-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transform-origin:center;}
+  .hero-scrim{
+    position:absolute;inset:0;
+    background:linear-gradient(0deg, rgba(8,14,16,.55) 0%, rgba(8,14,16,.34) 20%, rgba(8,14,16,.1) 36%, transparent 52%);
+  }
+  .hero-copy{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:0 20px 40px;
+    max-width:1180px;margin-inline:auto;
+    color:#F4FBFA;
+  }
+  .hero-copy h1{
+    color:#fff;font-size:clamp(30px,5vw,54px);line-height:1.06;max-width:15ch;
+    text-shadow:0 4px 24px rgba(0,0,0,.45);
+  }
+  .hero-price{margin-top:20px;display:flex;flex-direction:column;gap:4px;}
+  .hero-price .hp-label{
+    align-self:flex-start;
+    display:inline-block;
+    font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:#F4FBFA;
+    background:rgba(20,34,38,.6);
+    padding:6px 12px;
+    border-radius:4px;
+    backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  }
+  .hero-price .hp-amt{
+    font-family:var(--font-display);font-weight:600;font-style:italic;
+    font-size:clamp(42px,8vw,80px);line-height:1;color:var(--rose-gold);
+    text-shadow:0 6px 34px rgba(0,0,0,.4);
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;align-items:center;}
+
+  .factbar{overflow:hidden;background:var(--paper-raised);border-bottom:1px solid var(--line);}
+  .factbar-track{display:flex;width:max-content;animation:factbar-scroll 28s linear infinite;}
+  .factbar:hover .factbar-track{animation-play-state:paused;}
+  .factbar .track{
+    display:flex;align-items:center;padding-block:16px;white-space:nowrap;
+    font-family:var(--font-mono);font-size:13px;font-weight:500;letter-spacing:.04em;color:var(--ink);
+    text-transform:uppercase;
+  }
+  .factbar .track span{display:inline-flex;align-items:center;padding-inline:20px;}
+  .factbar .track span::after{content:"";width:4px;height:4px;border-radius:50%;background:var(--terracotta);margin-left:20px;flex-shrink:0;}
+  @keyframes factbar-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- generic section heading ---------- */
+  .head{max-width:62ch;margin-bottom:36px;}
+  #units .head{margin-bottom:22px;}
+  .head h2{font-size:clamp(24px,3.4vw,36px);margin-top:10px;}
+  .head .lede{margin-top:14px;color:var(--ink-soft);font-size:16px;max-width:56ch;}
+
+  /* ---------- exact location (map) ---------- */
+  .geo{
+    position:relative;
+    background-image:
+      linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)),
+      url('images/geo-bg.jpg');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    color:#fff;
+  }
+  .geo .eyebrow{color:#fff;}
+  .geo .eyebrow::before{background:#fff;}
+  .geo h2{color:#fff;}
+  .geo .lede{color:#fff;}
+  .geo-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;}
+  .geo .head{max-width:520px;margin-bottom:32px;}
+  .geo-video{width:100%;max-width:820px;aspect-ratio:848/472;border-radius:var(--radius-m);overflow:hidden;box-shadow:0 30px 60px -24px rgba(58,42,22,.45);background:#0D1A1C;margin-bottom:36px;}
+  .geo-video video{width:100%;height:100%;display:block;object-fit:cover;}
+  .geo-panel{
+    width:100%;max-width:820px;aspect-ratio:16/9;
+    border-radius:var(--radius-m);overflow:hidden;box-shadow:0 30px 60px -24px rgba(58,42,22,.45);
+    display:grid;grid-template-columns:1fr 1fr;text-align:left;
+  }
+  .geo-panel-map{position:relative;}
+  .geo-panel-map img{width:100%;height:100%;object-fit:cover;display:block;}
+  .geo-panel-info{background:var(--paper-raised);padding:26px 28px;display:flex;flex-direction:column;justify-content:center;overflow:auto;}
+  .geo-panel-info .lede{color:var(--on-gold-soft);font-size:14.5px;margin-bottom:18px;}
+  .geo-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
+  .geo-list li{display:flex;align-items:center;gap:8px;font-family:var(--font-body);font-weight:600;font-size:14.5px;color:var(--on-gold);}
+  .geo-pin-emoji{font-size:15px;flex-shrink:0;}
+  @media (max-width:760px){
+    .geo-panel{aspect-ratio:auto;grid-template-columns:1fr;}
+    .geo-panel-map{aspect-ratio:16/9;}
+  }
+  .geo-cta{margin-top:36px;}
+
+  /* ---------- why sea view / view slider ---------- */
+  .view{
+    position:relative;
+    background-image:
+      linear-gradient(180deg, rgba(10,20,23,.62) 0%, rgba(10,20,23,.72) 100%),
+      url('images/view-bg-kumiko.jpg');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+  }
+  .view h2{color:#fff;}
+  .view .head .lede{font-size:18px;color:#fff;}
+  .view-slider{max-width:880px;margin:0 auto;}
+  .vs-viewport{position:relative;aspect-ratio:16/9;border-radius:var(--radius-m);overflow:hidden;box-shadow:var(--shadow);background:var(--paper-raised);}
+  .vs-track{display:flex;height:100%;transition:transform .55s cubic-bezier(.65,0,.35,1);touch-action:pan-y;}
+  .vs-slide{flex:0 0 100%;width:100%;height:100%;}
+  .vs-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+  .vs-arrow{
+    position:absolute;top:50%;margin-top:-22px;
+    width:44px;height:44px;border-radius:50%;
+    background:rgba(20,34,38,.45);color:#fff;border:1px solid rgba(244,251,250,.35);
+    font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    backdrop-filter:blur(4px);transition:background .2s ease;
+  }
+  .vs-arrow:hover{background:rgba(20,34,38,.7);}
+  .vs-arrow:focus-visible{outline:2px solid var(--rose-gold);outline-offset:2px;}
+  .vs-prev{left:14px;}
+  .vs-next{right:14px;}
+
+  .vs-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:22px;}
+  .vs-tab{
+    font-family:var(--font-mono);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;
+    padding:9px 16px;border-radius:100px;border:1px solid var(--line);background:transparent;color:var(--ink-soft);cursor:pointer;
+    transition:background .2s ease,color .2s ease,border-color .2s ease;
+  }
+  .vs-tab.active{background:var(--accent-gradient);color:#fff;border-color:transparent;}
+  .vs-tab:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px;}
+  .view .vs-tab{color:#fff;}
+  .view .vs-tab:not(.active){border-color:rgba(255,255,255,.4);}
+
+  @media (prefers-reduced-motion: reduce){ .vs-track{transition:none;} }
+
+  /* ---------- unit types ---------- */
+  #units{
+    position:relative;
+    background-image:url('images/units-bg-balcony.jpg');
+    background-size:cover;
+    background-position:center 30%;
+    background-repeat:no-repeat;
+  }
+  #units .eyebrow{color:#fff;}
+  #units .eyebrow::before{background:#fff;}
+  #units .head h2{color:#fff;}
+  .units-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;}
+  @media (max-width:760px){ .units-grid{grid-template-columns:1fr;} }
+
+  .unit-card{position:relative;perspective:1800px;transition:transform .3s ease;}
+  .unit-card:hover{transform:scale(1.025);}
+  .unit-card.wide{grid-column:1 / -1;}
+  .unit-card.wide .unit-inner{display:grid;grid-template-columns:1fr 1.15fr;}
+  @media (max-width:760px){ .unit-card.wide .unit-inner{grid-template-columns:1fr;} }
+
+  .unit-flip{position:relative;width:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.45,.05,.15,1);}
+  .unit-card.is-flipped .unit-flip{transform:rotateY(180deg);}
+  .unit-face{
+    backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    border-radius:var(--radius-m);overflow:hidden;
+    background:var(--glass-bg);
+    backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
+    border:1px solid var(--glass-border);
+    box-shadow:var(--shadow), inset 0 1px 0 var(--glass-shine);
+  }
+  .unit-face-front{position:relative;}
+  .unit-face-back{
+    position:absolute;inset:0;
+    transform:rotateY(180deg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:28px 22px;
+  }
+  .unit-card img{width:100%;display:block;}
+  .unit-body{padding:18px 20px 22px;}
+  .unit-best{font-size:14.5px;color:var(--ink-soft);margin-bottom:16px;}
+  .unit-best b{color:var(--ink);font-weight:600;}
+
+  .unit-flip-cta{
+    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+    font-family:var(--font-mono);font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;
+    background:var(--terracotta-tint);color:var(--terracotta);border:none;border-radius:100px;
+    padding:11px 14px;cursor:pointer;transition:background .2s ease;
+  }
+  .unit-flip-cta:hover{background:var(--accent-gradient);color:#fff;}
+  .unit-flip-cta:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px;}
+  .unit-flip-cta-back{background:transparent;color:#fff;margin-top:26px;}
+  .unit-flip-cta-back:hover{background:rgba(255,255,255,.25);color:#fff;}
+
+  .unit-back{display:flex;flex-direction:column;gap:14px;width:100%;max-width:280px;}
+  .unit-back-row{display:flex;align-items:baseline;justify-content:center;gap:8px;flex-wrap:wrap;font-size:14.5px;color:#fff;}
+  .unit-back-icon{font-size:15px;}
+  .unit-back-label{font-weight:600;color:#fff;}
+  .unit-back-val{font-family:var(--font-mono);color:#fff;font-weight:600;}
+  .unit-back-highlight .unit-back-val.unit-back-big{font-size:22px;font-weight:700;color:var(--terracotta);font-family:var(--font-display);}
+  .unit-back-check{font-size:14px;}
+
+  /* ---------- fully furnished before/after ---------- */
+  .ff-compare{max-width:900px;margin:0 auto;}
+  .ff-stage{position:relative;display:flex;align-items:center;justify-content:center;height:clamp(300px,44vw,520px);transition:height .3s ease;}
+  .ff-stage.is-portrait{height:clamp(600px,88vw,1040px);}
+  .ff-frame{
+    position:relative;height:100%;max-width:100%;aspect-ratio:var(--ar,16/9);
+    border-radius:var(--radius-m);overflow:hidden;box-shadow:var(--shadow);
+    background:var(--paper-raised);cursor:ew-resize;touch-action:pan-y;
+  }
+  .ff-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none;user-select:none;}
+  .ff-before{clip-path:inset(0 50% 0 0);}
+  .ff-divider{position:absolute;top:0;bottom:0;left:50%;width:0;pointer-events:none;}
+  .ff-divider::before{content:'';position:absolute;top:0;bottom:0;left:0;width:2px;margin-left:-1px;background:rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(20,34,38,.25);}
+  .ff-handle{
+    position:absolute;top:50%;left:0;transform:translate(-50%,-50%);
+    width:40px;height:40px;border-radius:50%;background:#fff;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px -6px rgba(0,0,0,.4);
+  }
+  .ff-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;}
+  @media (max-width:640px){ .ff-thumbs{grid-template-columns:repeat(2,1fr);} }
+  .ff-thumb{
+    position:relative;border:2px solid transparent;border-radius:var(--radius-m);overflow:hidden;
+    cursor:pointer;background:var(--paper-raised);aspect-ratio:4/3;padding:0;display:block;
+    transition:border-color .2s ease;
+  }
+  .ff-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .ff-thumb span{
+    position:absolute;left:0;right:0;bottom:0;padding:8px 10px 7px;font-size:12px;font-weight:600;color:#fff;
+    background:linear-gradient(0deg,rgba(10,20,22,.75),rgba(10,20,22,0));text-align:left;
+  }
+  .ff-thumb.active{border-color:var(--terracotta);}
+  .ff-thumb:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px;}
+
+  /* ---------- fully furnished + testimonials connecting backdrop ---------- */
+  .ff-tm-connect{
+    position:relative;
+    background-image:
+      linear-gradient(rgba(242,245,245,.6), rgba(242,245,245,.6)),
+      url('images/ff-tm-bg.jpg');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+  }
+
+  /* ---------- testimonials ---------- */
+  .tm-marquee{
+    overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  }
+  .tm-track{display:flex;gap:16px;width:max-content;animation:tm-scroll 34s linear infinite;}
+  .tm-marquee:hover .tm-track{animation-play-state:paused;}
+  .tm-item{flex:0 0 auto;width:240px;aspect-ratio:3/4;border-radius:var(--radius-m);overflow:hidden;box-shadow:var(--shadow);}
+  .tm-item img{width:100%;height:100%;object-fit:cover;display:block;}
+  @media (max-width:640px){ .tm-item{width:170px;} }
+  @keyframes tm-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .tm-track{animation:none;} }
+  .tm-note{margin-top:20px;color:var(--ink-faint);font-size:13px;max-width:56ch;}
+
+  /* ---------- contact ---------- */
+  .contact{
+    position:relative;overflow:hidden;
+    background-image:
+      linear-gradient(180deg, rgba(8,16,18,.58) 0%, rgba(8,16,18,.74) 100%),
+      url('images/contact-bg-tower.jpg');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    color:var(--on-deep);
+  }
+  .contact-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;}
+  .agent{display:flex;align-items:center;gap:18px;}
+  .agent img{width:76px;height:76px;border-radius:50%;object-fit:cover;border:2px solid rgba(244,251,250,.4);}
+  .agent b{display:block;font-family:var(--font-display);font-weight:600;font-size:20px;color:var(--on-deep);text-align:left;}
+  .agent span{font-size:13.5px;color:var(--on-deep-soft);text-align:left;}
+  .contact .eyebrow{color:#E8C79A;justify-content:center;}
+  .contact .eyebrow::before{background:var(--gold);}
+  .contact h2{color:var(--on-deep);font-size:clamp(24px,3.4vw,32px);margin-top:8px;}
+
+  /* ---------- footer ---------- */
+  footer{padding:34px 20px 120px;}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-faint);}
+  footer .wrap p{max-width:60ch;}
+
+  /* ---------- floating whatsapp ---------- */
+  .float-wa{
+    position:fixed;right:18px;bottom:18px;z-index:50;
+    display:flex;align-items:center;gap:10px;
+    background:var(--accent-gradient);color:#F4FBFA;
+    border-radius:100px;padding:14px 18px 14px 14px;
+    box-shadow:0 16px 32px -14px rgba(140,70,30,.55);
+    text-decoration:none;font-weight:600;font-size:14px;
+  }
+  .float-wa svg{width:22px;height:22px;flex-shrink:0;}
+  .float-wa .lbl{display:none;}
+  @media (min-width:560px){ .float-wa .lbl{display:inline;} }
+
+  /* ---------- floating quick-jump dock ---------- */
+  .quick-jump{
+    position:fixed;right:18px;bottom:84px;z-index:49;
+    display:flex;flex-direction:column;gap:10px;align-items:center;
+  }
+  .qj-btn{
+    width:40px;height:40px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(20,34,38,.55);color:#fff;border:1px solid rgba(244,251,250,.35);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    text-decoration:none;font-size:17px;line-height:1;
+    box-shadow:0 10px 24px -12px rgba(10,20,22,.5);
+    transition:background .2s ease, transform .2s ease, border-color .2s ease;
+  }
+  .qj-btn:hover{background:rgba(20,34,38,.8);transform:scale(1.08);}
+  .qj-btn:focus-visible{outline:2px solid var(--terracotta);outline-offset:2px;}
+  .qj-btn.active{background:var(--accent-gradient);border-color:transparent;}
+  @media (max-width:640px){
+    .quick-jump{right:14px;bottom:78px;gap:7px;}
+    .qj-btn{width:33px;height:33px;font-size:14.5px;}
+  }
+
+  ::selection{background:var(--terracotta-tint);color:var(--ink);}
+
+  /* ---------- header shrink on scroll ---------- */
+  header.site .header-row{transition:padding-block .25s ease;}
+  header.site.is-scrolled{box-shadow:0 10px 26px -20px rgba(10,30,32,.45);}
+  header.site.is-scrolled .header-row{padding-block:9px;}
+
+  /* ---------- unit letter watermark ---------- */
+  .unit-body{position:relative;}
+  .unit-body::before{
+    content:attr(data-letter);
+    position:absolute;top:12px;right:18px;
+    font-family:var(--font-display);font-style:italic;font-weight:500;
+    font-size:50px;line-height:1;color:var(--terracotta);opacity:.15;
+    pointer-events:none;
+  }
+
+  /* ---------- zoomable images ---------- */
+  img.zoomable{cursor:zoom-in;}
+
+  /* ---------- lightbox ---------- */
+  .lightbox{
+    position:fixed;inset:0;z-index:100;
+    background:rgba(8,16,18,.92);
+    display:flex;align-items:center;justify-content:center;
+    padding:40px 20px;cursor:zoom-out;
+  }
+  .lightbox[hidden]{display:none;}
+  .lightbox img{max-width:100%;max-height:100%;border-radius:var(--radius-m);box-shadow:0 30px 70px -20px rgba(0,0,0,.6);}
+  .lightbox-close{
+    position:absolute;top:16px;right:18px;
+    width:42px;height:42px;border-radius:50%;
+    border:1px solid rgba(244,251,250,.35);background:rgba(244,251,250,.1);
+    color:#F4FBFA;font-size:24px;line-height:1;cursor:pointer;
+  }
+
+  /* ---------- testimonial hover ---------- */
+  .tm-item{transition:transform .3s ease,box-shadow .3s ease;}
+  .tm-item:hover{transform:translateY(-4px);box-shadow:0 30px 56px -22px rgba(14,42,45,.5);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .factbar-track{animation:none;}
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<header class="site">
+  <div class="header-row">
+    <a class="wordmark" href="#" aria-label="M Amaya @ Southbay">
+      <img src="images/logo-rosegold.png" alt="M Amaya, Southbay Batu Maung">
+    </a>
+    <nav class="site-nav" aria-label="Section navigation">
+      <a href="#location" data-i18n="nav.location">Exact Location</a>
+      <a href="#view" data-i18n="nav.view">The View</a>
+      <a href="#units" data-i18n="nav.units">5 Layouts</a>
+      <a href="#furnished" data-i18n="nav.furnished">Furnished</a>
+      <a href="#testimonials" data-i18n="nav.testimonials">Testimonials</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" id="btnEn" class="active">EN</button>
+        <button type="button" id="btnZh">中文</button>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/message/KQDPCXOYMFLHD1" target="_blank" rel="noopener" data-i18n="header.cta">WhatsApp Joe</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-media">
+      <img src="images/hero-sunset-pool.jpg" alt="M Amaya @ Southbay infinity pool at sunset, with the Penang Second Bridge in the background">
+      <div class="hero-scrim"></div>
+      <div class="hero-copy">
+        <h1 data-i18n="hero.h1">A Sea View You Don't Have To Imagine.</h1>
+        <div class="hero-price">
+          <span class="hp-label" data-i18n="hero.priceLbl">From, After Rebate</span>
+          <span class="hp-amt">RM460,000</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#units" data-i18n="hero.ctaLayouts">See All 5 Layouts</a>
+          <a class="btn btn-ghost" style="border-color:rgba(244,251,250,.5);color:#fff;" href="https://wa.me/message/KQDPCXOYMFLHD1" target="_blank" rel="noopener" data-i18n="header.cta">WhatsApp Joe</a>
+        </div>
+      </div>
+    </div>
+    <div class="factbar">
+      <div class="factbar-track">
+        <div class="track mono">
+          <span data-i18n="fact.freehold">Freehold · Solid Land</span>
+          <span data-i18n="fact.acres">4.8 Acres</span>
+          <span data-i18n="fact.towers">2 Towers · 37 Storeys</span>
+          <span data-i18n="fact.top">TOP 2030 Q1</span>
+          <span data-i18n="fact.perfloor">13 Units / Floor</span>
+        </div>
+        <div class="track mono" aria-hidden="true">
+          <span data-i18n="fact.freehold">Freehold · Solid Land</span>
+          <span data-i18n="fact.acres">4.8 Acres</span>
+          <span data-i18n="fact.towers">2 Towers · 37 Storeys</span>
+          <span data-i18n="fact.top">TOP 2030 Q1</span>
+          <span data-i18n="fact.perfloor">13 Units / Floor</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="geo" id="location">
+    <div class="wrap geo-wrap">
+      <div class="head" data-reveal>
+        <span class="eyebrow" data-i18n="geo.eyebrow">Batu Maung · Southern Penang</span>
+        <h2 data-i18n="geo.h2">Find Your Place In Southbay.</h2>
+      </div>
+
+      <div class="geo-video" data-reveal>
+        <video controls preload="metadata" playsinline poster="images/location-video-poster.jpg">
+          <source src="videos/location-tour.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="geo-panel" data-reveal>
+        <div class="geo-panel-map">
+          <img src="images/location-map.jpg" alt="Map showing M Amaya @ Southbay's location in Batu Maung, right by the Penang Second Bridge">
+        </div>
+        <div class="geo-panel-info">
+          <p class="lede" data-i18n="geo.lede">Consider your everyday routes: work in Bayan Lepas, airport trips, shopping and time with family. Visit the area at the times you normally travel.</p>
+          <ul class="geo-list">
+            <li><span class="geo-pin-emoji" aria-hidden="true">📍</span><span data-i18n="geo.item1">Penang Second Bridge</span></li>
+            <li><span class="geo-pin-emoji" aria-hidden="true">📍</span><span data-i18n="geo.item2">Bayan Lepas FIZ</span></li>
+            <li><span class="geo-pin-emoji" aria-hidden="true">📍</span><span data-i18n="geo.item3">Penang International Airport</span></li>
+            <li><span class="geo-pin-emoji" aria-hidden="true">📍</span><span data-i18n="geo.item4">Queensbay Mall</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <a class="btn btn-primary geo-cta" data-reveal href="https://wa.me/message/KQDPCXOYMFLHD1" target="_blank" rel="noopener" data-i18n="geo.cta">Book A Viewing</a>
+    </div>
+  </section>
+
+  <section class="view" id="view">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <h2 data-i18n="view.h2">The View.</h2>
+        <p class="lede" data-i18n="view.lede">Million-Dollar Sea Views, At Half The Price.</p>
+      </div>
+
+      <div class="view-slider" data-reveal>
+        <div class="vs-viewport" id="vsViewport">
+          <div class="vs-track" id="vsTrack">
+            <div class="vs-slide"><img src="images/view-city.jpg" alt="City and bridge view from M Amaya, facing Southbay Plaza and the Penang Second Bridge"></div>
+            <div class="vs-slide"><img src="images/view-sea.jpg" alt="Fully open sea view from M Amaya, facing the strait and the Penang Second Bridge"></div>
+            <div class="vs-slide"><img src="images/view-hill.jpg" alt="Hill and sea view from M Amaya, with green hillside in the foreground and the sea beyond"></div>
+          </div>
+          <button class="vs-arrow vs-prev" type="button" aria-label="Previous view">‹</button>
+          <button class="vs-arrow vs-next" type="button" aria-label="Next view">›</button>
+        </div>
+
+        <div class="vs-tabs">
+          <button class="vs-tab active" type="button" data-i18n="view.tab1">City &amp; Bridge View</button>
+          <button class="vs-tab" type="button" data-i18n="view.tab2">Fully Sea View</button>
+          <button class="vs-tab" type="button" data-i18n="view.tab3">Hill &amp; Sea View</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="units">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="eyebrow" data-i18n="units.eyebrow">5 Layouts · 721 – 1,432 sqft</span>
+        <h2 data-i18n="units.h2">Choose By How You Actually Live.</h2>
+      </div>
+      <div class="units-grid" data-reveal-group=".unit-card">
+
+        <article class="unit-card">
+          <div class="unit-flip">
+            <div class="unit-face unit-face-front">
+              <img class="zoomable" src="images/type-a.jpg" alt="Type A floor plan — 721 sqft, 2 bedrooms plus study, 2 bathrooms, 1 carpark">
+              <div class="unit-body" data-letter="A">
+                <p class="unit-best"><b data-i18n="units.bestLabel">Best for:</b> <span data-i18n="units.a.best">first-time buyers and investors — the study converts easily into a work-from-home nook or nursery.</span></p>
+                <button type="button" class="unit-flip-cta" aria-label="View price breakdown"><span data-i18n="units.viewPrice">View Price Breakdown</span> <span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+            <div class="unit-face unit-face-back">
+              <div class="unit-back">
+                <div class="unit-back-row"><span class="unit-back-icon" aria-hidden="true">📃</span><span class="unit-back-label" data-i18n="spec.spa">SPA</span><span class="unit-back-val">RM570K+</span></div>
+                <div class="unit-back-row unit-back-highlight"><span class="unit-back-icon" aria-hidden="true">🏦</span><span class="unit-back-label" data-i18n="spec.rebate">After Rebate</span><span class="unit-back-val unit-back-big">RM460K</span><span class="unit-back-check" aria-hidden="true">✅</span></div>
+                <div class="unit-back-row unit-back-highlight"><span class="unit-back-icon" aria-hidden="true">🎗️</span><span class="unit-back-label" data-i18n="spec.monthly">Monthly fr.</span><span class="unit-back-val unit-back-big">RM1,900+</span></div>
+                <div class="unit-back-row"><span class="unit-back-icon" aria-hidden="true">🚗</span><span class="unit-back-val" data-i18n="units.a.carpark">1 Carpark</span></div>
+              </div>
+              <button type="button" class="unit-flip-cta unit-flip-cta-back" aria-label="Back to floor plan"><span aria-hidden="true">←</span> <span data-i18n="units.backToPlan">Back to Floor Plan</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="unit-card">
+          <div class="unit-flip">
+            <div class="unit-face unit-face-front">
+              <img class="zoomable" src="images/type-b.jpg" alt="Type B floor plan — 990 sqft, 3 bedrooms, 2 bathrooms, 2 carparks">
+              <div class="unit-body" data-letter="B">
+                <p class="unit-best"><b data-i18n="units.bestLabel">Best for:</b> <span data-i18n="units.b.best">young families who want a spare bedroom without paying for a fourth one.</span></p>
+                <button type="button" class="unit-flip-cta" aria-label="View price breakdown"><span data-i18n="units.viewPrice">View Price Breakdown</span> <span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+            <div class="unit-face unit-face-back">
+              <div class="unit-back">
+                <div class="unit-back-row"><span class="unit-back-icon" aria-hidden="true">📃</span><span class="unit-back-label" data-i18n="spec.spa">SPA</span><span class="unit-back-val">RM760K+</span></div>
+                <div class="unit-back-row unit-back-highlight"><span class="unit-back-icon" aria-hidden="true">🏦</span><span class="unit-back-label" data-i18n="spec.rebate">After Rebate</span><span class="unit-back-val unit-back-big">RM620K</span><span class="unit-back-check" aria-hidden="true">✅</span></div>
+                <div class="unit-back-row unit-back-highlight"><span class="unit-back-icon" aria-hidden="true">🎗️</span><span class="unit-back-label" data-i18n="spec.monthly">Monthly fr.</span><span class="unit-back-val unit-back-big">RM2,600+</span></div>
+                <div class="unit-back-row"><span class="unit-back-icon" aria-hidden="true">🚗</span><span class="unit-back-val" data-i18n="units.b.carpark">2 Carparks</span></div>
+              </div>
+              <button type="button" class="unit-flip-cta unit-flip-cta-back" aria-label="Back to floor plan"><span aria-hidden="true">←</span> <span data-i18n="units.backToPlan">Back to Floor Plan</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="unit-card">
+          <div class="unit-flip">
+            <div class="unit-face unit-face-front">
+              <img class="zoomable" src="images/type-c.jpg" alt="Type C floor plan — 1211 sqft, 4 bedrooms, 2 bathrooms, 2 to 3 carparks">
+              <div class="unit-body" data-letter="C">
+                <p class="unit-best"><b data-i18n="units.bestLabel">Best for:</b> <span data-i18n="units.c.best">a full household — four bedrooms split across two wings, so everyone gets a corner.</span></p>
+                <button type="button" class="unit-flip-cta" aria-label="View price breakdown"><span data-i18n="units.viewPrice">View Price Breakdown</span> <span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+            <div class="unit-face unit-face-back">
+              <div class="unit-back">
+                <div class="unit-back-row"><span class="unit-back-icon" aria-hidden="true">📃</span><span class="unit-back-label" data-i18n="spec.spa">SPA</span><span class="unit-back-val">RM940K+</span></div>
+                <div class="unit-back-row unit-back-highlight"><span class="unit-back-icon" aria-hidden="true">🏦</span><span class="unit-back-label" data-i18n="spec.rebate">After Rebate</span><span class="unit-back-val unit-back-big">RM780K</span><span class="unit-back-check" aria-hidden="true">✅</span></div>
+                <div class="unit-back-row unit-back-highlight"><span class="unit-back-icon" aria-hidden="true">🎗️</span><span class="unit-back-label" data-i18n="spec.monthly">Monthly fr.</span><span class="unit-back-val unit-back-big">RM3,200+</span></div>
+                <div class="unit-back-row"><span class="unit-back-icon" aria-hidden="true">🚗</span><span class="unit-back-val" data-i18n="units.c.carpark">2-3 Carparks</span></div>
+              </div>
+              <button type="button" class="unit-flip-cta unit-flip-cta-back" aria-label="Back to floor plan"><span aria-hidden="true">←</span> <span data-i18n="units.backToPlan">Back to Floor Plan</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="unit-card">
+          <div class="unit-flip">
+            <div class="unit-face unit-face-front">
+              <img class="zoomable" src="images/type-d.jpg" alt="Type D floor plan — 1432 sqft, 4 bedrooms, 3 bathrooms, 2 to 3 carparks, with airwell">
+              <div class="unit-body" data-letter="D">
+                <p class="unit-best"><b data-i18n="units.bestLabel">Best for:</b> <span data-i18n="units.d.best">multi-generation living — three bathrooms and a private airwell mean no one queues in the morning.</span></p>
+                <button type="button" class="unit-flip-cta" aria-label="View price breakdown"><span data-i18n="units.viewPrice">View Price Breakdown</span> <span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+            <div class="unit-face unit-face-back">
+              <div class="unit-back">
+                <div class="unit-back-row"><span class="unit-back-icon" aria-hidden="true">📃</span><span class="unit-back-label" data-i18n="spec.spa">SPA</span><span class="unit-back-val">RM1.05M+</span></div>
+                <div class="unit-back-row unit-back-highlight"><span class="unit-back-icon" aria-hidden="true">🏦</span><span class="unit-back-label" data-i18n="spec.rebate">After Rebate</span><span class="unit-back-val unit-back-big">RM880K</span><span class="unit-back-check" aria-hidden="true">✅</span></div>
+                <div class="unit-back-row unit-back-highlight"><span class="unit-back-icon" aria-hidden="true">🎗️</span><span class="unit-back-label" data-i18n="spec.monthly">Monthly fr.</span><span class="unit-back-val unit-back-big">RM3,700+</span></div>
+                <div class="unit-back-row"><span class="unit-back-icon" aria-hidden="true">🚗</span><span class="unit-back-val" data-i18n="units.d.carpark">1+2 Carparks</span></div>
+              </div>
+              <button type="button" class="unit-flip-cta unit-flip-cta-back" aria-label="Back to floor plan"><span aria-hidden="true">←</span> <span data-i18n="units.backToPlan">Back to Floor Plan</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="unit-card wide">
+          <div class="unit-flip">
+            <div class="unit-face unit-face-front">
+              <div class="unit-inner">
+                <img class="zoomable" src="images/type-e.jpg" alt="Type E floor plan — 1335 sqft, 4 bedrooms, 2 bathrooms, 2 to 3 carparks, master suite separated from other bedrooms">
+                <div class="unit-body" data-letter="E">
+                  <p class="unit-best"><b data-i18n="units.bestLabel">Best for:</b> <span data-i18n="units.e.best">families who entertain — the master suite sits apart from the other three bedrooms, with the widest carpark allocation on this list.</span></p>
+                  <button type="button" class="unit-flip-cta" aria-label="View price breakdown"><span data-i18n="units.viewPrice">View Price Breakdown</span> <span aria-hidden="true">→</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="unit-face unit-face-back">
+              <div class="unit-back">
+                <div class="unit-back-row"><span class="unit-back-icon" aria-hidden="true">📃</span><span class="unit-back-label" data-i18n="spec.spa">SPA</span><span class="unit-back-val">RM990K+</span></div>
+                <div class="unit-back-row unit-back-highlight"><span class="unit-back-icon" aria-hidden="true">🏦</span><span class="unit-back-label" data-i18n="spec.rebate">After Rebate</span><span class="unit-back-val unit-back-big">RM830K</span><span class="unit-back-check" aria-hidden="true">✅</span></div>
+                <div class="unit-back-row unit-back-highlight"><span class="unit-back-icon" aria-hidden="true">🎗️</span><span class="unit-back-label" data-i18n="spec.monthly">Monthly fr.</span><span class="unit-back-val unit-back-big">RM3,400+</span></div>
+                <div class="unit-back-row"><span class="unit-back-icon" aria-hidden="true">🚗</span><span class="unit-back-val" data-i18n="units.e.carpark">1+2 Carparks</span></div>
+              </div>
+              <button type="button" class="unit-flip-cta unit-flip-cta-back" aria-label="Back to floor plan"><span aria-hidden="true">←</span> <span data-i18n="units.backToPlan">Back to Floor Plan</span></button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="ff-tm-connect">
+  <section id="furnished">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="eyebrow" data-i18n="ff.eyebrow">Bare Unit vs. Fully Furnished</span>
+        <h2 data-i18n="ff.h2">See The Same Room, Two Ways.</h2>
+        <p class="lede" data-i18n="ff.lede">Drag the divider to compare the bare handover unit against a fully furnished example. Tap a thumbnail below to switch rooms.</p>
+      </div>
+
+      <div class="ff-compare" data-reveal>
+        <div class="ff-stage">
+          <div class="ff-frame" id="ffFrame" style="--ar:1600/742;">
+            <img class="ff-img ff-after" id="ffAfter" src="images/ff-1-after.jpg" alt="Fully furnished example of this room">
+            <img class="ff-img ff-before" id="ffBefore" src="images/ff-1-before.jpg" alt="Bare handover condition of this room">
+            <div class="ff-divider" id="ffDivider">
+              <span class="ff-handle" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ff-thumbs" id="ffThumbs">
+          <button type="button" class="ff-thumb active" data-before="images/ff-1-before.jpg" data-after="images/ff-1-after.jpg" data-ar="1600/742">
+            <img src="images/ff-1-after.jpg" alt="Bedroom, fully furnished">
+            <span data-i18n="ff.room1">Bedroom</span>
+          </button>
+          <button type="button" class="ff-thumb" data-before="images/ff-2-before.jpg" data-after="images/ff-2-after.jpg" data-ar="1600/753">
+            <img src="images/ff-2-after.jpg" alt="Sea-view bedroom, fully furnished">
+            <span data-i18n="ff.room2">Sea-View Bedroom</span>
+          </button>
+          <button type="button" class="ff-thumb" data-before="images/ff-3-before.jpg" data-after="images/ff-3-after.jpg" data-ar="924/1600">
+            <img src="images/ff-3-after.jpg" alt="Walk-in wardrobe, fully furnished">
+            <span data-i18n="ff.room3">Walk-In Wardrobe</span>
+          </button>
+          <button type="button" class="ff-thumb" data-before="images/ff-4-before.jpg" data-after="images/ff-4-after.jpg" data-ar="930/1600">
+            <img src="images/ff-4-after.jpg" alt="Dining nook, fully furnished">
+            <span data-i18n="ff.room4">Dining Nook</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <span class="eyebrow" data-i18n="tm.eyebrow">Real Closings, Real Clients</span>
+        <h2 data-i18n="tm.h2">People Who Said Yes.</h2>
+      </div>
+      <div class="tm-marquee" data-reveal>
+        <div class="tm-track">
+          <div class="tm-item"><img src="images/testimonial-1.jpg" alt="Clients celebrating securing their M Amaya unit with the sales team"></div>
+          <div class="tm-item"><img src="images/testimonial-2.jpg" alt="Clients celebrating securing their M Amaya unit with the sales team"></div>
+          <div class="tm-item"><img src="images/testimonial-3.jpg" alt="Clients celebrating securing their M Amaya unit on a high-floor balcony"></div>
+          <div class="tm-item"><img src="images/testimonial-4.jpg" alt="A family celebrating securing their M Amaya unit at the showroom"></div>
+          <div class="tm-item"><img src="images/testimonial-5.jpg" alt="Clients celebrating securing their M Amaya unit at the showroom"></div>
+          <div class="tm-item"><img src="images/testimonial-6.jpg" alt="Clients celebrating securing their M Amaya unit at the showroom"></div>
+          <div class="tm-item" aria-hidden="true"><img src="images/testimonial-1.jpg" alt=""></div>
+          <div class="tm-item" aria-hidden="true"><img src="images/testimonial-2.jpg" alt=""></div>
+          <div class="tm-item" aria-hidden="true"><img src="images/testimonial-3.jpg" alt=""></div>
+          <div class="tm-item" aria-hidden="true"><img src="images/testimonial-4.jpg" alt=""></div>
+          <div class="tm-item" aria-hidden="true"><img src="images/testimonial-5.jpg" alt=""></div>
+          <div class="tm-item" aria-hidden="true"><img src="images/testimonial-6.jpg" alt=""></div>
+        </div>
+      </div>
+      <p class="tm-note" data-i18n="tm.note">Faces are blurred for privacy. The paperwork, the handshakes and the trust behind them are real.</p>
+    </div>
+  </section>
+  </div>
+
+  <section class="contact" id="contact">
+    <div class="wrap contact-wrap">
+      <div data-reveal>
+        <span class="eyebrow" data-i18n="contact.eyebrow">Talk To Joe</span>
+        <h2 data-i18n="contact.h2">Limited Offer, While Stocks Last. Book A Viewing Today.</h2>
+      </div>
+      <div class="agent" data-reveal>
+        <img src="images/agent-joe.jpg" alt="Joe Tan, property consultant for M Amaya @ Southbay">
+        <div>
+          <b>Joe Tan</b>
+          <span data-i18n="contact.role">Property Consultant · M Amaya @ Southbay</span>
+        </div>
+      </div>
+      <a class="btn btn-primary" data-reveal style="padding:15px 28px;font-size:15.5px;" href="https://wa.me/message/KQDPCXOYMFLHD1" target="_blank" rel="noopener" data-i18n="contact.cta">Visit Showroom</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p data-i18n="footer.disclaimer">M Amaya @ Southbay, Batu Maung is developed by Vienna View Development, a Mah Sing Group company. This page is an independent summary prepared by Joe Tan and is not an official developer publication. Interior, facility and lifestyle visuals are artist's impressions. Prices, promotions and furnishing terms are correct at time of publishing and subject to change without notice — please reconfirm with Joe before booking.</p>
+    <p>M Amaya @ Southbay · Batu Maung, Penang</p>
+  </div>
+</footer>
+
+<nav class="quick-jump" aria-label="Quick section navigation">
+  <a class="qj-btn" href="#location" title="Exact Location" aria-label="Jump to Exact Location"><span aria-hidden="true">📍</span></a>
+  <a class="qj-btn" href="#view" title="The View" aria-label="Jump to The View"><span aria-hidden="true">🌅</span></a>
+  <a class="qj-btn" href="#units" title="5 Layouts" aria-label="Jump to 5 Layouts"><span aria-hidden="true">🏠</span></a>
+  <a class="qj-btn" href="#furnished" title="Furnished" aria-label="Jump to Furnished"><span aria-hidden="true">🛋️</span></a>
+  <a class="qj-btn" href="#testimonials" title="Testimonials" aria-label="Jump to Testimonials"><span aria-hidden="true">💬</span></a>
+  <a class="qj-btn" href="#contact" title="Contact" aria-label="Jump to Contact"><span aria-hidden="true">📞</span></a>
+</nav>
+
+<a class="float-wa" href="https://wa.me/message/KQDPCXOYMFLHD1" target="_blank" rel="noopener" aria-label="Chat with Joe on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.24 0 4.35.87 5.93 2.46a8.3 8.3 0 0 1 2.45 5.92c0 4.61-3.76 8.36-8.38 8.36a8.4 8.4 0 0 1-4.27-1.16l-.3-.18-3.12.82.83-3.04-.2-.31a8.3 8.3 0 0 1-1.28-4.45c0-4.61 3.76-8.36 8.38-8.36M8.53 6.7c-.16 0-.43.06-.66.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.54.13.17 1.72 2.76 4.28 3.76 2.12.83 2.55.66 3.01.62.46-.04 1.48-.6 1.69-1.19.21-.58.21-1.08.15-1.19-.06-.1-.23-.17-.48-.29-.25-.13-1.48-.73-1.71-.81-.23-.08-.4-.13-.56.13-.17.25-.64.81-.78.98-.15.17-.29.19-.54.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.37-.78-1.87-.2-.49-.41-.42-.56-.43z"/></svg>
+  <span class="lbl" data-i18n="float.lbl">WhatsApp Joe</span>
+</a>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
+
+<script>
+(function(){
+  var ZH = {
+    "header.cta": "WhatsApp 咨询",
+    "nav.location": "确切位置",
+    "nav.view": "景观",
+    "nav.units": "5种户型",
+    "nav.furnished": "精装示范",
+    "nav.testimonials": "客户见证",
+    "nav.contact": "联系我们",
+    "hero.h1": "海景，不用想象，推窗就有。",
+    "hero.priceLbl": "起价 · 优惠后价",
+    "hero.ctaLayouts": "查看全部5种户型",
+    "fact.freehold": "永久地契 · 非填土地",
+    "fact.acres": "4.8 英亩",
+    "fact.towers": "2栋 · 37层",
+    "fact.top": "预计完工 2030 Q1",
+    "fact.perfloor": "每层13个单位",
+    "geo.eyebrow": "峇都茅 · 槟城南部",
+    "geo.h2": "在南湾，找到属于你的位置。",
+    "geo.lede": "想想你每天的日常动线：去湾莱上班、往返机场、购物，或是陪伴家人。不妨挑你平常出门的时间点，实地走一趟这一带。",
+    "geo.item1": "槟城二桥",
+    "geo.item2": "湾莱自由工业区",
+    "geo.item3": "槟城国际机场",
+    "geo.item4": "皇后湾广场",
+    "geo.cta": "预约看房",
+    "view.h2": "景观展示。",
+    "view.lede": "百万海景只需一半的价格就能拥有。",
+    "view.tab1": "城市与大桥景",
+    "view.tab2": "全海景",
+    "view.tab3": "山海景",
+    "units.eyebrow": "5种户型 · 721 – 1,432平方尺",
+    "units.h2": "按你的真实生活方式来选。",
+    "units.bestLabel": "适合：",
+    "units.a.best": "首购族与投资者——书房空间可以轻松改成居家办公角或婴儿房。",
+    "units.b.best": "想多一间房、又不想多付一间房钱的年轻家庭。",
+    "units.c.best": "人口较多的家庭——四间房分两侧，每个人都有自己的角落。",
+    "units.d.best": "三代同堂——三间卫浴加独立天井，早上不用排队。",
+    "units.e.best": "喜欢招待客人的家庭——主卧与其他三间房分开，车位数量也是这份名单里最多的。",
+    "units.viewPrice": "查看价格明细",
+    "units.backToPlan": "返回户型图",
+    "units.a.carpark": "1个车位",
+    "units.b.carpark": "2个车位",
+    "units.c.carpark": "2-3个车位",
+    "units.d.carpark": "1+2个车位",
+    "units.e.carpark": "1+2个车位",
+    "ff.eyebrow": "毛坯 vs. 精装示范",
+    "ff.h2": "同一个空间，两种可能。",
+    "ff.lede": "拖动中间的滑杆，比较交房时的毛坯状态与精装示范效果。点击下方缩图切换房间。",
+    "ff.room1": "卧室",
+    "ff.room2": "海景卧室",
+    "ff.room3": "步入式衣帽间",
+    "ff.room4": "用餐角落",
+    "spec.spa": "SPA价",
+    "spec.rebate": "优惠后价",
+    "spec.monthly": "月供起",
+    "tm.eyebrow": "真实成交，真实客户",
+    "tm.h2": "他们都说了「Yes」。",
+    "tm.note": "为保护隐私，照片人脸已做处理。但签约、握手，还有背后的信任，都是真的。",
+    "contact.eyebrow": "直接找Joe聊",
+    "contact.h2": "优惠有限，送完为止。现在就预约看房。",
+    "contact.role": "置业顾问 · M Amaya @ Southbay",
+    "contact.cta": "预约参观Showroom",
+    "footer.disclaimer": "M Amaya @ Southbay（Batu Maung）由 Vienna View Development（Mah Sing集团旗下公司）发展。本页面为Joe Tan整理的独立资料，并非发展商官方页面。室内、设施与生活方式图片均为效果图。价格、优惠与家私条款以发布时为准，如有更改恕不另行通知——订购前请向Joe重新确认。",
+    "float.lbl": "联系 Joe"
+  };
+
+  var els = Array.prototype.slice.call(document.querySelectorAll('[data-i18n]'));
+  var originals = new Map();
+  els.forEach(function(el){ originals.set(el, el.textContent); });
+
+  var btnEn = document.getElementById('btnEn');
+  var btnZh = document.getElementById('btnZh');
+
+  function applyLang(lang){
+    els.forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if(lang === 'zh' && ZH[key] !== undefined){ el.textContent = ZH[key]; }
+      else { el.textContent = originals.get(el); }
+    });
+    document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+    btnEn.classList.toggle('active', lang === 'en');
+    btnZh.classList.toggle('active', lang === 'zh');
+    try{ localStorage.setItem('amaya-lang', lang); }catch(e){}
+  }
+
+  btnEn.addEventListener('click', function(){ applyLang('en'); });
+  btnZh.addEventListener('click', function(){ applyLang('zh'); });
+
+  var saved = 'en';
+  try{ saved = localStorage.getItem('amaya-lang') || 'en'; }catch(e){}
+  if(saved === 'zh'){ applyLang('zh'); }
+})();
+</script>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- header: overlay -> solid once hero scrolls past ---------- */
+  var header = document.querySelector('header.site');
+  var heroMedia = document.querySelector('.hero-media');
+  function onScroll(){
+    var threshold = heroMedia ? Math.max(heroMedia.offsetHeight - 90, 40) : 40;
+    header.classList.toggle('is-scrolled', window.scrollY > threshold);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  /* ---------- lightbox ---------- */
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxClose = document.getElementById('lightboxClose');
+  function openLightbox(src, alt){
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lightbox.hidden = true;
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('img.zoomable').forEach(function(img){
+    img.addEventListener('click', function(){ openLightbox(img.currentSrc || img.src, img.alt); });
+  });
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){ if(e.target === lightbox){ closeLightbox(); } });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !lightbox.hidden){ closeLightbox(); } });
+
+  /* ---------- quick-jump dock: highlight active section ---------- */
+  var qjBtns = Array.prototype.slice.call(document.querySelectorAll('.qj-btn'));
+  if(qjBtns.length && 'IntersectionObserver' in window){
+    var qjMap = {};
+    qjBtns.forEach(function(btn){
+      var id = btn.getAttribute('href').slice(1);
+      var sec = document.getElementById(id);
+      if(sec){ qjMap[id] = btn; }
+    });
+    var qjObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var btn = qjMap[entry.target.id];
+        if(btn){ btn.classList.toggle('active', entry.isIntersecting); }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+    Object.keys(qjMap).forEach(function(id){ qjObserver.observe(document.getElementById(id)); });
+  }
+
+  /* ---------- unit card flip ---------- */
+  document.querySelectorAll('.unit-flip-cta').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var card = btn.closest('.unit-card');
+      if(card){ card.classList.toggle('is-flipped'); }
+    });
+  });
+
+  /* ---------- view slider ---------- */
+  var vsViewport = document.getElementById('vsViewport');
+  if(vsViewport){
+    var vsTrack = document.getElementById('vsTrack');
+    var vsTabs = vsViewport.parentElement.querySelectorAll('.vs-tab');
+    var vsPrev = vsViewport.querySelector('.vs-prev');
+    var vsNext = vsViewport.querySelector('.vs-next');
+    var vsIndex = 0;
+    var vsTotal = vsTabs.length;
+
+    function vsRender(){
+      var w = vsViewport.getBoundingClientRect().width;
+      vsTrack.style.transform = 'translateX(' + (-vsIndex * w) + 'px)';
+      vsTabs.forEach(function(t, i){ t.classList.toggle('active', i === vsIndex); });
+    }
+    function vsGo(i){ vsIndex = (i + vsTotal) % vsTotal; vsRender(); }
+
+    vsTabs.forEach(function(t, i){ t.addEventListener('click', function(){ vsGo(i); }); });
+    vsPrev.addEventListener('click', function(){ vsGo(vsIndex - 1); });
+    vsNext.addEventListener('click', function(){ vsGo(vsIndex + 1); });
+    window.addEventListener('resize', vsRender);
+
+    var vsStartX = null;
+    vsViewport.addEventListener('pointerdown', function(e){ vsStartX = e.clientX; });
+    vsViewport.addEventListener('pointerup', function(e){
+      if(vsStartX === null){ return; }
+      var dx = e.clientX - vsStartX;
+      if(Math.abs(dx) > 40){ vsGo(vsIndex + (dx < 0 ? 1 : -1)); }
+      vsStartX = null;
+    });
+
+    vsRender();
+  }
+
+  /* ---------- fully furnished before/after slider ---------- */
+  var ffFrame = document.getElementById('ffFrame');
+  if(ffFrame){
+    var ffBefore = document.getElementById('ffBefore');
+    var ffAfterImg = document.getElementById('ffAfter');
+    var ffDivider = document.getElementById('ffDivider');
+    var ffThumbs = Array.prototype.slice.call(document.querySelectorAll('.ff-thumb'));
+    var ffStage = document.querySelector('.ff-stage');
+    var ffIndex = 0;
+
+    function ffSetPct(pct){
+      pct = Math.max(0, Math.min(100, pct));
+      ffBefore.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+      ffDivider.style.left = pct + '%';
+    }
+    function ffLoad(i){
+      ffIndex = (i + ffThumbs.length) % ffThumbs.length;
+      var t = ffThumbs[ffIndex];
+      var ar = t.getAttribute('data-ar');
+      ffBefore.src = t.getAttribute('data-before');
+      ffAfterImg.src = t.getAttribute('data-after');
+      ffFrame.style.setProperty('--ar', ar);
+      var parts = ar.split('/');
+      var isPortrait = parseFloat(parts[0]) < parseFloat(parts[1]);
+      ffStage.classList.toggle('is-portrait', isPortrait);
+      ffThumbs.forEach(function(el, idx){ el.classList.toggle('active', idx === ffIndex); });
+      ffSetPct(50);
+    }
+    ffThumbs.forEach(function(t, i){ t.addEventListener('click', function(){ ffLoad(i); }); });
+
+    var ffDragging = false;
+    function ffPctFromEvent(e){
+      var r = ffFrame.getBoundingClientRect();
+      return ((e.clientX - r.left) / r.width) * 100;
+    }
+    ffFrame.addEventListener('pointerdown', function(e){
+      ffDragging = true;
+      try{ ffFrame.setPointerCapture(e.pointerId); }catch(err){}
+      ffSetPct(ffPctFromEvent(e));
+    });
+    ffFrame.addEventListener('pointermove', function(e){
+      if(!ffDragging){ return; }
+      ffSetPct(ffPctFromEvent(e));
+    });
+    function ffStopDrag(e){
+      ffDragging = false;
+      try{ ffFrame.releasePointerCapture(e.pointerId); }catch(err){}
+    }
+    ffFrame.addEventListener('pointerup', ffStopDrag);
+    ffFrame.addEventListener('pointercancel', ffStopDrag);
+
+    ffSetPct(50);
+  }
+
+  /* ---------- motion: smooth scroll + scroll reveals + hero ---------- */
+  if(reduceMotion || typeof gsap === 'undefined'){ return; }
+
+  if(typeof Lenis !== 'undefined'){
+    try{
+      var lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+      function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      if(typeof ScrollTrigger !== 'undefined'){
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+      }
+    }catch(e){}
+  }
+
+  if(typeof ScrollTrigger === 'undefined'){ return; }
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* hero entrance */
+  var heroTl = gsap.timeline({ defaults:{ ease:'power2.out', duration:0.9 } });
+  heroTl
+    .from('.hero-copy h1', { opacity:0, y:22 })
+    .from('.hero-price', { opacity:0, y:18 }, '-=0.55')
+    .from('.hero-actions', { opacity:0, y:18 }, '-=0.5');
+
+  /* hero parallax */
+  gsap.to('.hero-media img', {
+    yPercent: 8, ease:'none',
+    scrollTrigger:{ trigger:'.hero-media', start:'top top', end:'bottom top', scrub:true }
+  });
+
+  /* single-element reveals */
+  document.querySelectorAll('[data-reveal]').forEach(function(el){
+    gsap.from(el, {
+      opacity:0, y:26, duration:0.8, ease:'power2.out',
+      scrollTrigger:{ trigger:el, start:'top 88%' }
+    });
+  });
+
+  /* staggered group reveals */
+  document.querySelectorAll('[data-reveal-group]').forEach(function(group){
+    var sel = group.getAttribute('data-reveal-group');
+    var items = group.querySelectorAll(sel);
+    if(!items.length){ return; }
+    gsap.from(items, {
+      opacity:0, y:22, duration:0.7, ease:'power2.out', stagger:0.08,
+      scrollTrigger:{ trigger:group, start:'top 88%' }
+    });
+  });
+
+  /* pop-out group reveals (e.g. promo benefits, in order) */
+  document.querySelectorAll('[data-pop-group]').forEach(function(group){
+    var sel = group.getAttribute('data-pop-group');
+    var items = group.querySelectorAll(sel);
+    if(!items.length){ return; }
+    gsap.from(items, {
+      opacity:0, scale:0.5, y:16, duration:0.6, ease:'back.out(1.8)', stagger:0.18,
+      scrollTrigger:{ trigger:group, start:'top 85%' }
+    });
+  });
+})();
+</script>
